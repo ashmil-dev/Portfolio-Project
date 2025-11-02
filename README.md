@@ -3,7 +3,7 @@
 
 
 ## 📖 About  
-This is my **personal portfolio website**, designed and built using **HTML** and **CSS**.  
+This is my **personal portfolio website**, designed and built using **HTML**,**CSS** and **JAVASCRIPT**.  
 It showcases my background, projects, and skills in a clean and responsive layout.  
 The website provides a professional way for people to know more about me and my work.  
 
