@@ -315,6 +315,17 @@
       .home-image img{width:200px;}
       header nav a{margin-left:1rem;padding:0.4rem 0.8rem;}
     }
+.hidden {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
   </style>
 </head>
 <body>
@@ -430,5 +441,83 @@ I combine hands-on operational experience (from e-commerce to initial web page c
   <footer>
     © 2025 Ashmil P . All rights reserved.
   </footer>
+
+  <script>
+// ===== Smooth Scrolling for Nav Links =====
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href');
+    document.querySelector(targetId).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+// ===== Highlight Active Nav Link on Scroll =====
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section');
+  const scrollY = window.scrollY + 150; // offset for better accuracy
+
+  sections.forEach(sec => {
+    const id = sec.getAttribute('id');
+    const top = sec.offsetTop;
+    const height = sec.offsetHeight;
+
+    if (scrollY > top && scrollY <= top + height) {
+      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+      document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
+    }
+  });
+});
+
+// ===== Fade-in Animation on Scroll =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+document.querySelectorAll('section, .project-card, .skill-badge').forEach(el => {
+  el.classList.add('hidden');
+  observer.observe(el);
+});
+
+// ===== Scroll to Top Button =====
+const scrollBtn = document.createElement('button');
+scrollBtn.textContent = "↑";
+scrollBtn.id = "scrollTopBtn";
+document.body.appendChild(scrollBtn);
+
+scrollBtn.style.position = "fixed";
+scrollBtn.style.bottom = "20px";
+scrollBtn.style.right = "20px";
+scrollBtn.style.padding = "10px 15px";
+scrollBtn.style.fontSize = "20px";
+scrollBtn.style.border = "none";
+scrollBtn.style.borderRadius = "50%";
+scrollBtn.style.background = "#b74b4b";
+scrollBtn.style.color = "#fff";
+scrollBtn.style.cursor = "pointer";
+scrollBtn.style.display = "none";
+scrollBtn.style.transition = "opacity 0.3s ease";
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    scrollBtn.style.display = "block";
+    scrollBtn.style.opacity = "1";
+  } else {
+    scrollBtn.style.opacity = "0";
+    setTimeout(() => scrollBtn.style.display = "none", 300);
+  }
+});
+
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
 </body>
 </html>
